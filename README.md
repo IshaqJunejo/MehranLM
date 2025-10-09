@@ -1,8 +1,12 @@
 # MehranLM
 
+![Status](https://img.shields.io/badge/Status-In_Progress-yellow)
+
 **MehranLM** is an experiemental attempt to build a **Small Language Model (SLM) for Sindhi**. 
-It is currently supposed to be a submission for the GitHub's **For the Love of Code** hackathon. But as it likely won't be finished under the deadline, the vision is beyond the competition.
+
 > To create a home-grown Sindhi language model that developers, students, and evetually the wider public can use, improve, and enjoy.
+>
+> <p align="left">جيو ڪريس! </p>
 
 ---
 
@@ -10,7 +14,7 @@ It is currently supposed to be a submission for the GitHub's **For the Love of C
 
 - **Lack of Sindhi support** - General or Multilingual LLM  perform poorly on Sindhi due to lack of data.
 - **Local-first approach** - MehranLM is focued exclusively on Sindhi Language.
-- **Community-driven** - Developers, students, and contributors are welcome to join hands in building the first-ever Sindhi language model.
+- **Community-driven** - Developers, students, and contributors are welcome to join hands in building a Sindhi language model.
 
 ---
 
@@ -47,8 +51,7 @@ This project cannot grow alone. Contributions are welcome. You can help us in ma
     git clone https://github.com/IshaqJunejo/MehranLM.git
     ```
 - Open an Issue on this repository for any suggestion
-- Or reach out through Mail, LinkedIn, or anywhere you can find.
-
+- Or reach out through [Mail](mailto:ishaque.junejo.dev@gmail.com), [LinkedIn](https://www.linkedin.com/in/ishaque-junejo/), or anywhere else you can find.
 
 ---
 
