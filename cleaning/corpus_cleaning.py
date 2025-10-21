@@ -1,6 +1,7 @@
 import os
 import re
 import html
+import unicodedata
 
 # Zero width characters
 ZERO_WIDTH = ['\u200B', '\u200C', '\u200D', '\uFEFF', '\u200E', '\u200F', '\u202A', '\u202B', '\u202C', '\u202D', '\u202E', '\u061C']
@@ -69,6 +70,21 @@ def keep_arabic_block(text: str) -> str:
     # Only keep characters within Arabic ranges
     return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s]', '', text)
 
+def normalize(text: str) -> str:
+    # Normalizing different positional-rendering of characters to their standard-rendering
+    text = unicodedata.normalize('NFKC', text)
+
+    # Normalizing different variants of "ي"
+    text = text.replace("ى", "ي")
+    text = text.replace("ی", "ي")
+    text = text.replace("ۍ", "ي")
+    text = text.replace("ێ", "ي")
+    text = text.replace("ې", "ي")
+    text = text.replace("ے", "ي")
+    text = text.replace("ۓ", "ي")
+
+    return text
+
 
 def is_sindhi_text(s: str) -> bool:
     stripped = s.strip()
@@ -94,8 +110,9 @@ def clean_file(input_path: str, output_path: str):
     cleaned_lines = []
     for line in lines:
         cleaned = clean_text(line)
-        if cleaned and is_sindhi_text(cleaned):
-            cleaned_lines.append(cleaned)
+        normalized = normalize(cleaned)
+        if normalized and is_sindhi_text(normalized):
+            cleaned_lines.append(normalized)
     
     # De-duplication
     seen = set()
