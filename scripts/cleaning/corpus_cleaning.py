@@ -131,12 +131,12 @@ def clean_file(input_path: str, output_path: str):
 
 
 def main():
-    input_dir = "../Corpus/Raw/Large/"          # This Directory is mentioned in .gitignore
-    # input_dir = "../Corpus/Raw/"
-    output_dir = "../Corpus/Cleaned/"
+    # input_dir = "../../Corpus/Raw/Large/"          # This Directory is mentioned in .gitignore
+    input_dir = "../../Corpus/Raw/"
+    output_dir = "../../Corpus/Cleaned/"
 
-    # input_dir = "../Corpus/Private/Raw/"        # This Directory is mentioned in .gitignore
-    # output_dir = "../Corpus/Private/Cleaned/"   # This Directory is mentioned in .gitignore
+    # input_dir = "../../Corpus/Private/Raw/"        # This Directory is mentioned in .gitignore
+    # output_dir = "../../Corpus/Private/Cleaned/"   # This Directory is mentioned in .gitignore
 
     os.makedirs(output_dir, exist_ok=True)
 

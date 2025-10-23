@@ -2,13 +2,13 @@ import os
 
 def main():
     text = ""
-    input_dir = "../Corpus/Cleaned/"
+    input_dir = "../../Corpus/Cleaned/"
     for filename in os.listdir(input_dir):
         if filename.endswith(".txt"):
             filepath = os.path.join(input_dir, filename)
 
             with open(filepath, "r", encoding="utf-8") as f:
-                text += f.read()
+                text += f.read() + "\n"
     
     print(f"Total Characters: {len(text)}")
 
