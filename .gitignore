@@ -3,3 +3,6 @@ Corpus/Raw/Large/
 
 # Private Corpus to be used for my personal diary writings
 Corpus/Private/
+
+# Python cache directory
+__pycache__/

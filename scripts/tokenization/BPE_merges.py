@@ -4,6 +4,7 @@ import re
 import json
 from typing import Dict, Tuple, List
 
+# Generate word vocabulary from the training Corpus
 def get_vocab_from_corpus(corpus: str) -> Counter:
     vocab = Counter()
 
@@ -16,6 +17,7 @@ def get_vocab_from_corpus(corpus: str) -> Counter:
 
     return vocab
 
+# Generating pair and frequency mapping from the word vocabulary
 def get_pair_frequency(vocab: Counter) -> Dict[Tuple[str, str], int]:
     pairs = defaultdict(int)
 
@@ -26,10 +28,12 @@ def get_pair_frequency(vocab: Counter) -> Dict[Tuple[str, str], int]:
     
     return pairs
 
+# Merging a specific pair and updating our Vocab
 def merge_pairs_in_vocab(pair: Tuple[str, str], vocab: Counter) -> Counter:
     merged_vocab = Counter()
     a, b = pair
     pattern = re.escape(a) + r' ' + re.escape(b) # same as `pattern = a + ' ' + b` just with regex safety
+
     for words, freq in vocab.items():
         s = " ".join(words)
         s_new = re.sub(pattern, a + b, s)
@@ -39,6 +43,7 @@ def merge_pairs_in_vocab(pair: Tuple[str, str], vocab: Counter) -> Counter:
     
     return merged_vocab
 
+# Performing Byte-Pair-Encoding on our training Corpus
 def train_bpe(corpus: str, num_merges: int) -> List[Tuple[str, str]]:
     vocab = get_vocab_from_corpus(corpus)
     merges: List[Tuple[str, str]] = []
@@ -59,6 +64,7 @@ def train_bpe(corpus: str, num_merges: int) -> List[Tuple[str, str]]:
     
     return merges
 
+# Applying BPE to a single Word
 def apply_bpe_to_word(merge_ranks: Dict[Tuple[str, str], int], word: str) -> List[str]:
     symbols = list(word) + ["</w>"]
 
@@ -80,29 +86,30 @@ def apply_bpe_to_word(merge_ranks: Dict[Tuple[str, str], int], word: str) -> Lis
 
     return symbols
 
-
-def apply_bpe_to_text(merge_ranks: Dict[Tuple[str, str], int], text: str) -> List[List[str]]:
+# Applying BPE to a piece of text (a collection of words)
+def apply_bpe_to_text(merge_ranks: Dict[Tuple[str, str], int], text: str) -> List[str]:
     text_lines = text.splitlines()
     out_lines = []
 
     for line in text_lines:
-        line_tokens = []
         for word in line.strip().split():
             bpe_on_word = apply_bpe_to_word(merge_ranks, word)
-            line_tokens.extend(bpe_on_word)
-        out_lines.append(line_tokens)
+            out_lines.extend(bpe_on_word)
+        out_lines.append("<nl>") # '<nl>' is the special token for new line
     
     return out_lines
 
-
+# Indexing our merge_collection
 def build_merge_ranks(merges: List[Tuple[str, str]]) -> Dict[Tuple[str, str], int]:
     return {pair: idx for idx, pair in enumerate(merges)}
 
+# Writing our merge_collection to a file
 def save_merges(merges: List[Tuple[str, str]], path: str):
     with open(path, "w", encoding="utf-8") as f:
         for a, b in merges:
             f.write(f"{a} {b}\n")
 
+# Loading a merge_collection from a load
 def load_merges(path: str) -> List[Tuple[str, str]]:
     merges = []
 
@@ -115,13 +122,12 @@ def load_merges(path: str) -> List[Tuple[str, str]]:
     return merges
 
 if __name__ == "__main__":
-    # input_dir = "../../Corpus/Cleaned/"
-
+    # # Loading the corpus
+    # corpus_dir = "../../Corpus/Cleaned/"
     # corpus = ""
-
-    # for filename in os.listdir(input_dir):
+    # for filename in os.listdir(corpus_dir):
     #     if filename.endswith(".txt"):
-    #         filepath = os.path.join(input_dir, filename)
+    #         filepath = os.path.join(corpus_dir, filename)
     #         with open(filepath, "r", encoding="utf-8") as f:
     #             corpus += f.read() + "\n"
     
@@ -137,8 +143,7 @@ if __name__ == "__main__":
     merges = load_merges("./merges.txt")
     merge_ranks = build_merge_ranks(merges)
 
-    # print(merges)
-    sample = "منهنجي دل کي رجهاءڻ لاء قسم به ڪوڙا کيان.\nوڏيون وڏيون ڳالهين ڪياءي."
+    sample = "منهنجي دل کي رجهاءڻ لاء قسم به ڪوڙا کيان.\nوڏيون وڏيون ڳالهين ڪياءي." # Shout-out to " حسنين سمون ۽ بابار منگي "
     print("Our sample text before tokenization")
     print("\n" + sample + "\n\n")
 
@@ -147,6 +152,5 @@ if __name__ == "__main__":
     print("After tokenization")
 
     for i in sample_tokens:
-        for j in i:
-            print(j)
+        print(i)
     
