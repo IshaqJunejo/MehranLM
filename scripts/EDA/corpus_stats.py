@@ -18,13 +18,13 @@ def main():
     print(f"Total Characters: {total_char}")
     print(f"Total Unique Characters: {len(char_freq)}")
 
-    output_file = "./char_frequency.csv"
+    output_file = "./char_frequency.txt"
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, "w", encoding="utf-8") as f:
-        f.write("Char,Frequency,Unicode Name\n")
+        f.write("Char\tFrequency\tUnicode Name\n")
         for ch, freq in sorted(char_freq.items(), key=lambda x: -x[1]):
             name = unicodedata.name(ch, "UNKNOWN")
-            f.write(f"{ch},{freq},{name}\n")
+            f.write(f"{ch}\t{freq}\t{name}\n")
     
     print(f"Character frequency report saved to {output_file}")
 

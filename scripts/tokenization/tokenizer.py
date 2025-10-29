@@ -63,7 +63,7 @@ if __name__ == "__main__":
     token_to_id = read_from_json("token_to_id.json")
     id_to_token = read_from_json("id_to_token.json")
 
-    sample_text = "منهنجي دل کي رجهاءڻ لاء قسم به ڪوڙا کيان\nوڏيون وڏيون ڳالهين ڪياءي" # Shout-out to " حسنين سمون ۽ بابار منگي "
+    sample_text = "منهنجي دل کي رجهاءڻ لاء قسم به ڪوڙا کيان.\nوڏيون وڏيون ڳالهين ڪياءي." # Shout-out to " حسنين سمون ۽ بابار منگي "
     print(sample_text)
 
     sample_tokens = encode(sample_text, token_to_id, merge_ranks)

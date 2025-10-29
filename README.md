@@ -3,6 +3,7 @@
 ![Status](https://img.shields.io/badge/Status-In_Progress-yellow)
 
 **MehranLM** is an experiemental attempt to build a **Small Language Model (SLM) for Sindhi**. 
+
 To create a home-grown Sindhi language model that developers, students, and evetually the wider public can use, improve, and enjoy.
 
 > <p align="left">جيو ڪريس! </p>
@@ -27,9 +28,14 @@ To create a home-grown Sindhi language model that developers, students, and evet
 
 ## Roadmap
 
-- [ ] Collect and clean Sindhi text dataset
-- [ ] Tokenization
-- [ ] Train on n-gram models
+- [ ] Collect and clean Sindhi text dataset *(in-progress)*
+  - [x] Download and Clean Wikidumps
+  - [ ] Typing some stuff in Sindhi *(in-progress)*
+  - [ ] OCR Public-Domain Books
+  - [ ] Type folklore and old peotry
+- [x] Tokenization
+  - [x] Basic BPE Tokenization
+  - [ ] Further Improvements
 - [ ] Train on RNN
 - [ ] Train on LSTM
 - [ ] Train on Transformers

@@ -61,14 +61,17 @@ def clean_text(text: str) -> str:
     # Keep only the arabic characters
     text = keep_arabic_block(text)
 
+    # Remove Diacritics
+    text = re.sub(r'[\u064B-\u0652]', '', text)
+
     # Trim whitespace
     text = text.strip()
 
     return text
 
 def keep_arabic_block(text: str) -> str:
-    # Only keep characters within Arabic ranges
-    return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s]', '', text)
+    # Only keep characters within Arabic ranges, and a few punctuations
+    return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!]', '', text)
 
 def normalize(text: str) -> str:
     # Normalizing different positional-rendering of characters to their standard-rendering
