@@ -9,7 +9,16 @@ def build_vocab_from_corpus(corpus: str, merge_ranks: Dict[Tuple[str, str], int]
     tokens = BPE_merges.apply_bpe_to_text(merge_ranks, corpus)
     token_set.update(tokens)
 
-    vocab_dict = {token: idx for idx, token in enumerate(sorted(token_set))}
+    special_tokens = ["<UNK>", "<PAD>"]
+    vocab_dict = {}
+
+    for idx, token in enumerate(special_tokens):
+        vocab_dict[token] = idx
+
+    for idx, token in enumerate((sorted(token_set))):
+        vocab_dict[token] = idx + len(special_tokens)
+    
+    # vocab_dict = {token: idx for idx, token in enumerate(sorted(token_set))}
     return vocab_dict
 
 # Write content to a json file
@@ -29,7 +38,7 @@ def encode(text: str, token_to_id: Dict[str, str], merge_ranks: Dict[Tuple[str, 
     # Convert text into tokens
     tokens = BPE_merges.apply_bpe_to_text(merge_ranks, text)
     # Convert tokens in IDs
-    return [token_to_id.get(tok) for tok in tokens]
+    return [token_to_id.get(tok, token_to_id["<UNK>"]) for tok in tokens]
 
 # Convert IDs into text
 def decode(ids: List[int], id_to_token: Dict[str, str]) -> str:
@@ -63,11 +72,16 @@ if __name__ == "__main__":
     token_to_id = read_from_json("token_to_id.json")
     id_to_token = read_from_json("id_to_token.json")
 
-    sample_text = "منهنجي دل کي رجهاءڻ لاء قسم به ڪوڙا کيان.\nوڏيون وڏيون ڳالهين ڪياءي." # Shout-out to " حسنين سمون ۽ بابار منگي "
+    # Shout-out to " حسنين سمون ۽ بابار منگي "
+    sample_text = "منهنجي دل کي رجهاءڻ لاء، رڳو مون سان ڪوڙ هياءي.\nوڏيون وڏيون ڳالهيون ڪياءي، وفا ته ڪانه ڪياءي." 
     print(sample_text)
+    print()
 
     sample_tokens = encode(sample_text, token_to_id, merge_ranks)
+    print("Token List")
     print(sample_tokens)
+    print()
 
     reconstructed_text = decode(sample_tokens, id_to_token)
+    print("Reconstructed from Tokens")
     print(reconstructed_text)

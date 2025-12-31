@@ -125,35 +125,36 @@ def load_merges(path: str) -> List[Tuple[str, str]]:
     return merges
 
 if __name__ == "__main__":
-    # Loading the corpus
-    corpus_dir = "../../Corpus/Cleaned/"
-    corpus = ""
-    for filename in os.listdir(corpus_dir):
-        if filename.endswith(".txt"):
-            filepath = os.path.join(corpus_dir, filename)
-            with open(filepath, "r", encoding="utf-8") as f:
-                corpus += f.read() + "\n"
+    # # Loading the corpus
+    # corpus_dir = "../../Corpus/Cleaned/"
+    # corpus = ""
+    # for filename in os.listdir(corpus_dir):
+    #     if filename.endswith(".txt"):
+    #         filepath = os.path.join(corpus_dir, filename)
+    #         with open(filepath, "r", encoding="utf-8") as f:
+    #             corpus += f.read() + "\n"
     
-    vocab = get_vocab_from_corpus(corpus)
+    # vocab = get_vocab_from_corpus(corpus)
 
-    merges = train_bpe(corpus, 5000)
+    # merges = train_bpe(corpus, 5000)
 
-    save_merges(merges, "./merges.txt")
-    print("Saved merges to \'merges.txt\'")
+    # save_merges(merges, "./merges.txt")
+    # print("Saved merges to \'merges.txt\'")
 
-    print(vocab)
+    # print(vocab)
 
-    # merges = load_merges("./merges.txt")
-    # merge_ranks = build_merge_ranks(merges)
+    merges = load_merges("./merges.txt")
+    merge_ranks = build_merge_ranks(merges)
 
-    # sample = "منهنجي دل کي رجهاءڻ لاء قسم به ڪوڙا کيان.\nوڏيون وڏيون ڳالهين ڪياءي." # Shout-out to " حسنين سمون ۽ بابار منگي "
-    # print("Our sample text before tokenization")
-    # print("\n" + sample + "\n\n")
+    # Shout-out to " حسنين سمون ۽ بابار منگي "
+    sample = "منهنجي دل کي رجهاءڻ لاء، رڳو مون سان ڪوڙ هياءي.\nوڏيون وڏيون ڳالهيون ڪياءي، وفا ته ڪانه ڪياءي." 
+    print("Our sample text before tokenization")
+    print("\n" + sample + "\n\n")
 
-    # sample_tokens = apply_bpe_to_text(merge_ranks, sample)
+    sample_tokens = apply_bpe_to_text(merge_ranks, sample)
 
-    # print("After tokenization")
+    print("After tokenization")
 
-    # for i in sample_tokens:
-    #     print(i)
+    for i in sample_tokens:
+        print(i)
     
