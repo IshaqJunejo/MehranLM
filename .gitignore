@@ -6,3 +6,6 @@ Corpus/Private/
 
 # Python cache directory
 __pycache__/
+
+# Python module initialization file
+__init__.py

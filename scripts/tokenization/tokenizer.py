@@ -9,7 +9,10 @@ def build_vocab_from_corpus(corpus: str, merge_ranks: Dict[Tuple[str, str], int]
     tokens = BPE_merges.apply_bpe_to_text(merge_ranks, corpus)
     token_set.update(tokens)
 
+    # Special tokens
     special_tokens = ["<UNK>", "<PAD>"]
+    
+    # Token vocabulary
     vocab_dict = {}
 
     for idx, token in enumerate(special_tokens):
@@ -45,7 +48,7 @@ def decode(ids: List[int], id_to_token: Dict[str, str]) -> str:
     # Convert IDs into tokens
     tokens = [id_to_token.get(str(i)) for i in ids]
     # Convert tokens into text
-    return "".join(tokens).replace("</w>", " ").replace("<nl>", "\n")
+    return "".join(tokens).replace("</w>", " ").replace("<nl>", "\n").replace("<PAD>", "")
 
 if __name__ == "__main__":
     # # Loading the corpus
