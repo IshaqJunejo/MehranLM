@@ -26,32 +26,27 @@ def sentence_length_stat(filepath: str, merge_ranks: Dict[Tuple[str, str]]):
         print(filepath + " is an empty file!")
         return None
     
-    distribution_label = ["< 5", "5 - 15", "15 - 25", "25 - 50", ">= 50"]
-    distribution = [0, 0, 0, 0, 0]
+
+    token_len_distribution = []
     total_tokens = 0
 
     for sentence in sentences:
         tokens = tokenize_sentence(merge_ranks, sentence)
 
-        if len(tokens) < 5:
-            distribution[0] += 1
-        elif 5 <= len(tokens) < 15:
-            distribution[1] += 1
-        elif 15 <= len(tokens) < 25:
-            distribution[2] += 1
-        elif 25 <= len(tokens) < 50:
-            distribution[3] += 1
-        elif len(tokens) >= 50:
-            distribution[4] += 1
-        
+        token_len_distribution.append(len(tokens))        
         total_tokens += len(tokens)
+    
+    token_len_distribution = sorted(token_len_distribution)
     
     print("Sentence Length Stats for " + filepath)
     print("Mean Sentence Length: " + str((total_tokens / len(sentences))))
 
-    print("Number of sentences in each token-length category")
-    for i in range(len(distribution)):
-        print(distribution_label[i] + ": " + str(distribution[i]))
+    print("Token Length In Percentiles")
+    print("50%: " + str(token_len_distribution[int(len(token_len_distribution) * 0.5)]))
+    print("75%: " + str(token_len_distribution[int(len(token_len_distribution) * 0.75)]))
+    print("90%: " + str(token_len_distribution[int(len(token_len_distribution) * 0.90)]))
+    print("95%: " + str(token_len_distribution[int(len(token_len_distribution) * 0.95)]))
+    print("99%: " + str(token_len_distribution[int(len(token_len_distribution) * 0.99)]))
     
     print()
 
