@@ -104,7 +104,13 @@ def is_sindhi_text(s: str) -> bool:
     # Return True if more than 40% of characters in the line are Sindhi characters
     return (sindhi_chars / total_chars) > 0.4
 
+# Normalize whitespaces
+def normalize_whitespace(text: str) -> str:
+    text = re.sub(r'[\u00A0\u2000-\u200B\u202F\u205F\u3000]+', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
+# Clean and normalize the entire file
 def clean_file(input_path: str, output_path: str):
     with open(input_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.readlines()
@@ -114,6 +120,7 @@ def clean_file(input_path: str, output_path: str):
     for line in lines:
         cleaned = clean_text(line)
         normalized = normalize(cleaned)
+        normalized = normalize_whitespace(normalized)
         if normalized and is_sindhi_text(normalized):
             cleaned_lines.append(normalized)
     
@@ -134,8 +141,8 @@ def clean_file(input_path: str, output_path: str):
 
 
 def main():
-    # input_dir = "../../Corpus/Raw/Large/"          # This Directory is mentioned in .gitignore
-    input_dir = "../../Corpus/Raw/"
+    input_dir = "../../Corpus/Raw/Large/"          # This Directory is mentioned in .gitignore
+    # input_dir = "../../Corpus/Raw/"
     output_dir = "../../Corpus/Cleaned/"
 
     # input_dir = "../../Corpus/Private/Raw/"        # This Directory is mentioned in .gitignore

@@ -6,3 +6,6 @@ Corpus/Private/
 
 # Python cache directory
 __pycache__/
+
+# Virtual Environments
+venv
