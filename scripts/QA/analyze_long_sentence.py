@@ -1,11 +1,10 @@
 import os
 import random
-from tokenization import BPE_merges
+from tokenization import tokenizer
 from EDA import sentence_length
 
 if __name__ == "__main__":
-    merges = BPE_merges.load_merges("./tokenization/merges.txt")
-    merge_ranks = BPE_merges.build_merge_ranks(merges)
+    token_dict = tokenizer.load_tokens("./tokenization/tokenizer.json")
 
     text = ""
     with open("../Corpus/Cleaned/sindhi_wiki_articles_cleaned.txt", "r", encoding="utf-8") as f:
@@ -17,7 +16,7 @@ if __name__ == "__main__":
     print("Finished splitting the text into sentences")
 
     for sentence in sentences:
-        tokens = sentence_length.tokenize_sentence(merge_ranks, sentence)
+        tokens = sentence_length.tokenize_sentence(sentence, token_dict)
 
         if len(tokens) > 100:
             long_sentences.append((sentence, str(len(tokens))))

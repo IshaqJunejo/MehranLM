@@ -1,6 +1,6 @@
 import os
 import re
-from tokenization import BPE_merges
+from tokenization import tokenizer
 
 SENTENCE_SPLIT = re.compile(r'[-.،۔؟!?.؛;\n]+')
 
@@ -8,10 +8,10 @@ def split_sentences(text: str):
     sentences = SENTENCE_SPLIT.split(text)
     return [s.strip() for s in sentences if s.strip()]
 
-def tokenize_sentence(merge_ranks: Dict[Tuple[str, str]], sentence: str):
-    return BPE_merges.apply_bpe_to_text(merge_ranks, sentence)
+def tokenize_sentence(sentence: str, token_dict):
+    return tokenizer.encode(sentence, token_dict)
 
-def sentence_length_stat(filepath: str, merge_ranks: Dict[Tuple[str, str]]):
+def sentence_length_stat(filepath: str, token_dict):
     text = ""
     if filepath.endswith(".txt"):
         with open(filepath, "r", encoding="utf-8") as f:
@@ -31,7 +31,7 @@ def sentence_length_stat(filepath: str, merge_ranks: Dict[Tuple[str, str]]):
     total_tokens = 0
 
     for sentence in sentences:
-        tokens = tokenize_sentence(merge_ranks, sentence)
+        tokens = tokenize_sentence(sentence, token_dict)
 
         token_len_distribution.append(len(tokens))        
         total_tokens += len(tokens)
@@ -52,11 +52,10 @@ def sentence_length_stat(filepath: str, merge_ranks: Dict[Tuple[str, str]]):
     print("---")
 
 if __name__ == "__main__":
-    merges = BPE_merges.load_merges("./tokenization/merges.txt")
-    merge_ranks = BPE_merges.build_merge_ranks(merges)
+    token_dict = tokenizer.load_tokens("./tokenization/tokenizer.json")
 
     corpus_dir = "../Corpus/Cleaned/"
     for filename in os.listdir(corpus_dir):
         if filename.endswith(".txt"):
             filepath = os.path.join(corpus_dir, filename)
-            sentence_length_stat(filepath, merge_ranks)
+            sentence_length_stat(filepath, token_dict)
