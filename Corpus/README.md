@@ -17,3 +17,5 @@ This directory contains the corpus used in the project. It includes cleaned and 
 ## Acknowledgements
 
 A considerable portion of this corpus is derived from **Wikimedia Content (Wikipedia Dumps)**, that is why this project's corpus is licensed under **CC-BY-SA-4.0**, see [LICENSE](LICENSE) for more information.
+
+Also to [Danish Mahdi](https://www.linkedin.com/in/danish-mahdi-571265231/) for the making the [Sindhi Legal Dataset](https://huggingface.co/datasets/DanishMahdi/Sindhi_Legal) available under the license **CC-BY-SA-4.0**.

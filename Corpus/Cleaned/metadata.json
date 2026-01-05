@@ -1,0 +1,70 @@
+{
+    "name": "MehranLM - Corpus",
+    "language": "Sindhi",
+    "script": "Perso-Arabic Script",
+    "description": "Raw text corpus for language model training in Sindhi",
+    "intended_use": [
+        "Language model training",
+        "Tokenizer training"
+    ],
+    "format": "plain text",
+    "preprocessing": {
+        "encoding": "UTF-8",
+        "normalization": [
+            "NFKC Unicode normalization",
+            "Whitespace normalization"
+        ],
+        "filtering": [
+            "removing empty lines",
+            "removing zero Width characters",
+            "HTML, XML, URLS, and leftover symbols",
+            "Keeping only Perso-Arabic Unicode blocks",
+            "Removing diacritics",
+            "Whitespace trimming"
+        ],
+        "deduplication": "in-file deduplication",
+        "applied to": "All files"
+    },
+    "files": [
+        {
+            "filename": "self_typed_corpus_00_cleaned.txt",
+            "source": "Personal Writings",
+            "license": "CC-BY-SA-4.0",
+            "copyright_holder": "Muhammad Ishaque Junejo"
+        },
+        {
+            "filename": "sindhi_legal_dataset_cleaned.txt",
+            "source": "Sindhi Legal Dataset",
+            "author": "Danish Mahdi",
+            "license": "CC-BY-SA-4.0",
+            "url": "https://huggingface.co/datasets/DanishMahdi/Sindhi_Legal"
+        },
+        {
+            "filename": "sindhi_wiki_articles_cleaned.txt",
+            "source": "Wikipedia Dumps (sdwiki)",
+            "license": "CC-BY-SA-4.0",
+            "url": "https://dumps.wikimedia.org/sdwiki/20260101/",
+            "type": "Wikipedia Article Content"
+        },
+        {
+            "filename": "sindhi_wiki_articles_index_cleaned.txt",
+            "source": "Wikipedia Dumps (sdwiki)",
+            "license": "CC-BY-SA-4.0",
+            "url": "https://dumps.wikimedia.org/sdwiki/20260101/",
+            "type": "Index of Wikipedia Articles"
+        }
+    ],
+    "license": "CC-BY-SA-4.0",
+    "attribution": [
+        "Wikipedia contributors",
+        "Danish Mahdi"
+    ],
+    "limitations": [
+        "No document-level annotation",
+        "No cross-source deduplication",
+        "Diacritics removed during preprocessing",
+        "Domain limitation"
+    ],
+    "curated_by": "Muhammad Ishaque Junejo",
+    "version": "0.1.0"
+}
