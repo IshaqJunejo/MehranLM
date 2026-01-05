@@ -31,7 +31,7 @@ def train_bpe(corpus: str, num_merges: int):
     trainer = BpeTrainer(
         vocab_size=num_merges + NUM_OF_CHAR,
         min_frequency=1,
-        special_tokens=["<UNK>", "<PAD>"]
+        special_tokens=["<UNK>", "<PAD>", "<BOS>", "<EOS>", "<SEP>", "<MASK>"]
     )
 
     tokenizer.train_from_iterator(

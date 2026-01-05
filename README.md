@@ -66,5 +66,5 @@ This project cannot grow alone. Contributions are welcome. You can help us in ma
 
 This repository contains 2 different licenses.
 
-- **Scripts (`scripts/`)**: Licensed under the MIT License - see [LICENSE](LICENSE)
+- **Pipeline (`pipeline/`)**: Licensed under the MIT License - see [LICENSE](LICENSE)
 - **Corpus (`Corpus/`)**: License under CC-BY-SA-4.0, as portions of this corpus is derived from Wikimedia content (Wikipedia dumps) - see [LICENSE](Corpus/LICENSE)

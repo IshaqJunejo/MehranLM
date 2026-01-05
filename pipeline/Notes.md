@@ -25,6 +25,8 @@ Which means, that the sentence length is also (at least somewhat) inflated by ju
 
 ### Migration from Custom Tokenization to Tokenizers Library
 
+* **3rd Jan, 2026**
+
 The decision to leave the custom implementation of tokenization to using the `Tokenizers` library was made as the custom implementation was too unoptimized to be scaled to larger numbers of `BPE merges` and/or larger corpus.
 
 The biggest factors in it unoptimized nature were being single-threaded behaviour, and having multiple levels of nested loops for `pair frequency counting` after performing each merge.
@@ -32,6 +34,8 @@ The biggest factors in it unoptimized nature were being single-threaded behaviou
 The custom implementation took more than 1 and a half hours to finish on a corpus of **41.5 MB** with **10000 merges** on an **i7-6600u**, but the `Tokenizers` library based approach with the same specification takes almost 2 minutes, which makes re-iterating a little more comfortable.
 
 ### End-Of-Word and New-Line Marks
+
+* **5th Jan, 2026**
 
 Previously, I was using `<nl>` and `<w/>` as markers for **new line** and **end of word**.
 
@@ -49,3 +53,13 @@ Instead, I decided to use `NL` and `EW` as the markers for **new lines** and **e
 They work good enough because they are small enough to be guaranteed to be merged, and they aren't going to mess with the rest of the corpus because the entire corpus is now exclusively in the Sindhi Language (written in Arabic script).
 
 Using single chars of Latin script could be an even better idea, but it is left out for the sake of ease of understanding.
+
+### Special Tokens
+
+* **5th Jan, 2026**
+
+Added more special tokens to the tokenizer, because the plan for the language model is to be able to **extend** or **finetune** for different tasks.
+
+Previously there were only 2 special tokens, `<UNK>` for *Unknown Tokens* and `<PAD>` for *Padding*.
+
+Now, there are `<BOS>` for *Beginning of Sequence*, `<EOS>` for *End of Sequence*, `<SEP>` for *Sequence Seperator*, and `<MASK>` for *Masking token*, the last one will likely be used for predicting missing/masked tokens from a given sequence, in tasks like **OCR Correction**.

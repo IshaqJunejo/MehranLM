@@ -27,6 +27,6 @@ def show_entropy_stats(corpus_dir: str):
     print()
 
 if __name__ == "__main__":
-    show_entropy_stats("../../Corpus/Cleaned/")
-    show_entropy_stats("../../Corpus/Raw/")
-    show_entropy_stats("../../Corpus/Raw/Large/")
+    show_entropy_stats("../Corpus/Cleaned/")
+    show_entropy_stats("../Corpus/Raw/")
+    show_entropy_stats("../Corpus/Raw/Large/")
