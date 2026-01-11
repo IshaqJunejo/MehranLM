@@ -16,7 +16,7 @@
         ],
         "filtering": [
             "removing empty lines",
-            "removing zero Width characters",
+            "removing zero-width characters",
             "HTML, XML, URLS, and leftover symbols",
             "Keeping only Perso-Arabic Unicode blocks",
             "Removing diacritics",
@@ -29,12 +29,18 @@
         {
             "filename": "self_typed_corpus_00_cleaned.txt",
             "source": "Personal Writings",
+            "sentence_count": "159",
+            "token_count": "529",
+            "char-entropy": "4.692934435181202 bits per char",
             "license": "CC-BY-SA-4.0",
             "copyright_holder": "Muhammad Ishaque Junejo"
         },
         {
             "filename": "sindhi_legal_dataset_cleaned.txt",
             "source": "Sindhi Legal Dataset",
+            "sentence_count": "2982",
+            "token_count": "31327",
+            "char-entropy": "4.64121923934374 bits per char",
             "author": "Danish Mahdi",
             "license": "CC-BY-SA-4.0",
             "url": "https://huggingface.co/datasets/DanishMahdi/Sindhi_Legal"
@@ -42,6 +48,9 @@
         {
             "filename": "sindhi_wiki_articles_cleaned.txt",
             "source": "Wikipedia Dumps (sdwiki)",
+            "sentence_count": "571051",
+            "token_count": "6493467",
+            "char-entropy": "4.581089602325647 bits per char",
             "license": "CC-BY-SA-4.0",
             "url": "https://dumps.wikimedia.org/sdwiki/20260101/",
             "type": "Wikipedia Article Content"
@@ -49,11 +58,15 @@
         {
             "filename": "sindhi_wiki_articles_index_cleaned.txt",
             "source": "Wikipedia Dumps (sdwiki)",
+            "sentence_count": "35350",
+            "token_count": "162145",
+            "char-entropy": "4.6467186655760795 bits per char",
             "license": "CC-BY-SA-4.0",
             "url": "https://dumps.wikimedia.org/sdwiki/20260101/",
             "type": "Index of Wikipedia Articles"
         }
     ],
+    "total_token_count": "6687468",
     "license": "CC-BY-SA-4.0",
     "attribution": [
         "Wikipedia contributors",

@@ -3,7 +3,7 @@ from collections import Counter
 import unicodedata
 
 def main():
-    input_dir = "../../Corpus/Cleaned/"
+    input_dir = "../Corpus/Cleaned/"
     char_freq = Counter()
     total_char = 0
 
@@ -18,7 +18,7 @@ def main():
     print(f"Total Characters: {total_char}")
     print(f"Total Unique Characters: {len(char_freq)}")
 
-    output_file = "./char_frequency.txt"
+    output_file = "./EDA/char_frequency.txt"
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, "w", encoding="utf-8") as f:
         f.write("Char\tFrequency\tUnicode Name\n")
