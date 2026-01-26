@@ -55,6 +55,7 @@ if __name__ == "__main__":
     token_dict = tokenizer.load_tokens("./tokenization/tokenizer.json")
 
     corpus_dir = "../Corpus/Cleaned/"
+#    corpus_dir = "../Corpus/Private/Cleaned/"
     for filename in os.listdir(corpus_dir):
         if filename.endswith(".txt"):
             filepath = os.path.join(corpus_dir, filename)
