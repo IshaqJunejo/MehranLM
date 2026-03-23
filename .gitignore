@@ -1,11 +1,11 @@
 # Raw Corpus with files too large for GitHub
 Corpus/Raw/Large/
 
-# Private Corpus to be used for my personal diary writings
+# Private Corpus to be used for proprietary data
 Corpus/Private/
 
 # Python cache directory
 __pycache__/
 
 # Virtual Environments
-venv
+.venv

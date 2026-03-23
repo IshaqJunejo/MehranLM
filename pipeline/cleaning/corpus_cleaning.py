@@ -6,6 +6,8 @@ import unicodedata
 # Zero width characters
 ZERO_WIDTH = ['\u200B', '\u200C', '\u200D', '\uFEFF', '\u200E', '\u200F', '\u202A', '\u202B', '\u202C', '\u202D', '\u202E', '\u061C']
 
+PUNCTUATIONS = ['.', '،', '؟', '!', '%', '*', '&', '(', ')', ';', ':', '\'', '\"', '?', '', '']
+
 # Arabic character ranges (Unicode)
 ARABIC_RANGES = [
     (0x0600, 0x06FF),
@@ -19,6 +21,13 @@ ARABIC_RANGES = [
 def is_arabic_char(ch: int) -> bool:
     for a, b in ARABIC_RANGES:
         if a <= ch and ch <= b:
+            return True
+    
+    return False
+
+def is_punctuation(ch: int) -> bool:
+    for p in PUNCTUATIONS:
+        if ch == p:
             return True
     
     return False
@@ -46,20 +55,21 @@ def clean_text(text: str) -> str:
     # Remove URLs, email addresses, and numbers
     text = re.sub(r'http\S+|www\.\S+', '', text)
     text = re.sub(r'\S+@\S+', '', text)
-    text = re.sub(r'\d+', '', text)
+    # text = re.sub(r'\d+', '', text)   # Decision changed
 
     # Remove stray punctuation or excessive symbols
     text = re.sub(r'[“”"\'–—_•·<>•=*#|]', ' ', text)
     text = re.sub(r'\s+', ' ', text)
 
     # Remove Latin characters
-    text = re.sub(r'[A-Za-z]', '', text)
+    # text = re.sub(r'[A-Za-z]', '', text)  # Decision changed
 
     # Remove Zero width characters
     text = remove_zero_width(text)
 
     # Keep only the arabic characters
-    text = keep_arabic_block(text)
+    # text = keep_arabic_block(text)    # Decision changed
+    text = keep_arabic_and_latin(text)
 
     # Remove Diacritics
     text = re.sub(r'[\u064B-\u0652]', '', text)
@@ -69,9 +79,12 @@ def clean_text(text: str) -> str:
 
     return text
 
-def keep_arabic_block(text: str) -> str:
-    # Only keep characters within Arabic ranges, and a few punctuations
-    return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!]', '', text)
+def keep_arabic_and_latin(text: str) -> str:
+    return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!%*&();:?\'\"0-9A-Za-z]', '', text)
+
+# def keep_arabic_block(text: str) -> str:
+#     # Only keep characters within Arabic ranges, and a few punctuations
+#     return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!]', '', text)
 
 def normalize(text: str) -> str:
     # Normalizing different positional-rendering of characters to their standard-rendering
@@ -95,14 +108,14 @@ def is_sindhi_text(s: str) -> bool:
     if not stripped:
         return False
     
-    sindhi_chars = sum(1 for c in s if is_arabic_char(ord(c)))
+    sindhi_chars = sum(1 for c in s if (is_arabic_char(ord(c)) or is_punctuation(ord(c))))
     total_chars = sum(1 for c in stripped if not c.isspace())
     
     if total_chars == 0:
         return False
 
     # Return True if more than 40% of characters in the line are Sindhi characters
-    return (sindhi_chars / total_chars) > 0.4
+    return (sindhi_chars / total_chars) > 0.75
 
 # Normalize whitespaces
 def normalize_whitespace(text: str) -> str:
@@ -141,8 +154,8 @@ def clean_file(input_path: str, output_path: str):
 
 
 def main():
-    # input_dir = "../Corpus/Raw/Large/"          # This Directory is mentioned in .gitignore
-    input_dir = "../Corpus/Raw/"
+    input_dir = "../Corpus/Raw/Large/"          # This Directory is mentioned in .gitignore
+    # input_dir = "../Corpus/Raw/"
     output_dir = "../Corpus/Cleaned/"
 
     # input_dir = "../Corpus/Private/Raw/"        # This Directory is mentioned in .gitignore

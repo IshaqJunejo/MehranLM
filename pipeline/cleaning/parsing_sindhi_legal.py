@@ -3,6 +3,10 @@ import pandas as pd
 
 df = pd.read_csv("../Corpus/Raw/Sindhi_Legal_Dataset.csv")
 
+# Empty the file first
+with open(f"../Corpus/Raw/sindhi_legal_dataset.txt", "w", encoding="utf-8") as f:
+    f.write("")
+
 count = 0
 for _, row in df.iterrows():
     question = str(row["input_sd"])

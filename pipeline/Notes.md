@@ -63,3 +63,12 @@ Added more special tokens to the tokenizer, because the plan for the language mo
 Previously there were only 2 special tokens, `<UNK>` for *Unknown Tokens* and `<PAD>` for *Padding*.
 
 Now, there are `<BOS>` for *Beginning of Sequence*, `<EOS>` for *End of Sequence*, `<SEP>` for *Sequence Seperator*, and `<MASK>` for *Masking token*, the last one will likely be used for predicting missing/masked tokens from a given sequence, in tasks like **OCR Correction**.
+
+### Reducing Excessive Cleanup of Corpus
+
+* **23rd March, 2026**
+
+When trying to hand-pick a **subcorpus**, which can be used to train a char-based LSTM, which can then be used to analyze the perplexity of the entire corpus, I came across a problem. I realized that I had cleaned the corpus, a little too aggressively.
+Specially, when the wikipedia articles had to mention a year, there were no numbers, only a 'ﻉ' (representing the year in AD calendar).
+
+So I have decided to not remove *Numbers* and *Latin Characters*, but only allows lines with 75% of characters being in the Arabic Unicode ranges.

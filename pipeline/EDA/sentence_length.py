@@ -4,6 +4,8 @@ from tokenization import tokenizer
 
 SENTENCE_SPLIT = re.compile(r'[-.،۔؟!?.؛;\n]+')
 
+total_tokens_in_dir = 0
+
 def split_sentences(text: str):
     sentences = SENTENCE_SPLIT.split(text)
     return [s.strip() for s in sentences if s.strip()]
@@ -12,6 +14,8 @@ def tokenize_sentence(sentence: str, token_dict):
     return tokenizer.encode(sentence, token_dict)
 
 def sentence_length_stat(filepath: str, token_dict):
+    global total_tokens_in_dir
+
     text = ""
     if filepath.endswith(".txt"):
         with open(filepath, "r", encoding="utf-8") as f:
@@ -36,6 +40,8 @@ def sentence_length_stat(filepath: str, token_dict):
         token_len_distribution.append(len(tokens))        
         total_tokens += len(tokens)
     
+    total_tokens_in_dir += total_tokens
+
     token_len_distribution = sorted(token_len_distribution)
     
     print("Sentence Length Stats for " + filepath)
@@ -55,8 +61,10 @@ if __name__ == "__main__":
     token_dict = tokenizer.load_tokens("./tokenization/tokenizer.json")
 
     corpus_dir = "../Corpus/Cleaned/"
-#    corpus_dir = "../Corpus/Private/Cleaned/"
+    # corpus_dir = "../Corpus/Private/Cleaned/"
     for filename in os.listdir(corpus_dir):
         if filename.endswith(".txt"):
             filepath = os.path.join(corpus_dir, filename)
             sentence_length_stat(filepath, token_dict)
+
+    print("\n\nTotal Token Count: " + str(total_tokens_in_dir))

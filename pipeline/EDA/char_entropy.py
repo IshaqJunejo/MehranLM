@@ -30,3 +30,7 @@ if __name__ == "__main__":
     show_entropy_stats("../Corpus/Cleaned/")
     show_entropy_stats("../Corpus/Raw/")
     show_entropy_stats("../Corpus/Raw/Large/")
+
+    print("\nPrivate Corpus:")
+    show_entropy_stats("../Corpus/Private/Cleaned/")
+    show_entropy_stats("../Corpus/Private/Raw/")
