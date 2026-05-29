@@ -4,8 +4,6 @@ import os
 import json
 from model import char_LSTM
 
-# The results running this script have been piped to `text_generated_by_char_LSTM.txt` file
-
 if __name__ == "__main__":
     torch.manual_seed(42)
 
@@ -15,7 +13,6 @@ if __name__ == "__main__":
         vocab_data = json.load(f)
 
     char_to_idx = vocab_data["char_to_idx"]
-    # idx_to_char = vocab_data["idx_to_char"]
     idx_to_char = {int(k): v for k, v in vocab_data["idx_to_char"].items()}
     
     VOCAB_SIZE = len(char_to_idx)
@@ -26,13 +23,16 @@ if __name__ == "__main__":
 
     model.load_state_dict(torch.load("model/char_LSTM_checkpoints/epoch_25.pth", map_location=device))
 
-    seed = "مھراڻ يونيورسٽي"
+    print("Enter the seed string: (The complete string will be taken as input)")
+
+    seed = (str)(input("\t|"))
+
     length = 256
 
     print(f"Seed text:\n{seed}")
     print(f"Generate {length} more characters to it\n")
 
-    for i in range(2, 20, 2):
+    for i in range(2, 21, 2):
         temp = i / 10
         print(f"Temperature: {temp}\n")
         sample = char_LSTM.generate(model, seed, length, temp, char_to_idx, idx_to_char)
