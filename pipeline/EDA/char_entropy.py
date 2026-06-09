@@ -6,7 +6,7 @@ def calculate_entropy(filepath: str) -> float:
     corpus = ""
     if filepath.endswith(".txt"):
         with open(filepath, "r", encoding="utf-8") as f:
-            corpus += f.read() + "/n"
+            corpus += f.read() + "\n"
     
     char_counts = Counter(corpus)
     total_chars = sum(char_counts.values())

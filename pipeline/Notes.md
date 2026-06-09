@@ -72,3 +72,22 @@ When trying to hand-pick a **subcorpus**, which can be used to train a char-base
 Specially, when the wikipedia articles had to mention a year, there were no numbers, only a 'ﻉ' (representing the year in AD calendar).
 
 So I have decided to not remove *Numbers* and *Latin Characters*, but only allows lines with 75% of characters being in the Arabic Unicode ranges.
+
+## Model
+
+### Calculating the Perplexity Scores of the Corpus
+
+* **9th June, 2026**
+
+Having trained a char-based LSTM on a hand-picked **subcorpus** of around 260-270 KBs of text, I wanted to use that Language Model as loose benchmark for analyzing the larger corpus I have on hand.
+
+So, I performed the analysis on each file individually, broke that file into chunks of 512 characters, and calculated the perplexity by comparing the prediction (by charLM) and the actual character, for every **8th** character in the chunk (stepping 8 characters for speeding purposes). Stored the perplexity score of every chunk, alongside with *mean*, *median*, and *standard deviation* of the chunk perplexity scores in a JSON file for each corpus file.
+
+* `self_typed_corpus_00_cleaned.txt` has an average perplexity score of **48.74**.
+* `sindhi_legal_dataset_cleaned.txt` has an average perplexity score of **11.40**.
+* `sindhi_wiki_articles_cleaned.txt` has an average perplexity score of **11.68**.
+* `sindhi_wiki_articles_index_cleaned.txt` has an average perplexity score of **24.27**.
+
+`self_typed_corpus_00_cleaned.txt` and `sindhi_wiki_articles_index_cleaned.txt` has a really high perplexity, this is likely due the high density short, list based content in these 2 files.
+
+The other 2 files, `sindhi_legal_dataset_cleaned.txt` and `sindhi_wiki_articles_cleaned.txt` does have a relatively lower perplexity, but still it is not low enough to be considered a "good enough" score. It is likely due to the limitation of the hand-picked subcorpus on which the charLM was trained. 
