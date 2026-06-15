@@ -31,6 +31,7 @@ The biggest factors in it unoptimized nature were being single-threaded behaviou
 
 The custom implementation took more than 1 and a half hours to finish on a corpus of **41.5 MB** with **10000 merges** on an **i7-6600u**, but the `Tokenizers` library based approach with the same specification takes almost 2 minutes, which makes re-iterating a little more comfortable.
 
+
 ### End-Of-Word and New-Line Marks
 
 * **5th Jan, 2026**
@@ -52,6 +53,7 @@ They work good enough because they are small enough to be guaranteed to be merge
 
 Using single chars of Latin script could be an even better idea, but it is left out for the sake of ease of understanding.
 
+
 ### Special Tokens
 
 * **5th Jan, 2026**
@@ -61,6 +63,7 @@ Added more special tokens to the tokenizer, because the plan for the language mo
 Previously there were only 2 special tokens, `<UNK>` for *Unknown Tokens* and `<PAD>` for *Padding*.
 
 Now, there are `<BOS>` for *Beginning of Sequence*, `<EOS>` for *End of Sequence*, `<SEP>` for *Sequence Seperator*, and `<MASK>` for *Masking token*, the last one will likely be used for predicting missing/masked tokens from a given sequence, in tasks like **OCR Correction**.
+
 
 ### Reducing Excessive Cleanup of Corpus
 
@@ -88,3 +91,21 @@ So, I performed the analysis on each file individually, broke that file into chu
 `self_typed_corpus_00_cleaned.txt` and `sindhi_wiki_articles_index_cleaned.txt` has a really high perplexity, this is likely due the high density short, list based content in these 2 files.
 
 The other 2 files, `sindhi_legal_dataset_cleaned.txt` and `sindhi_wiki_articles_cleaned.txt` does have a relatively lower perplexity, but still it is not low enough to be considered a "good enough" score. It is likely due to the limitation of the hand-picked subcorpus on which the charLM was trained.
+
+
+### Improving the Tokenizer
+
+* **15th June, 2026**
+
+As I was using `NL` and `EW` for **newline** and **end-of-word** markers, because "They aren't going to mess with the rest of the corpus because the entire corpus is now exclusively in the Sindhi Language." Since 5th January.
+
+But on 23rd March, I decided to not remove all the *Latin Character*, so now there were some chances that the markers might mess up the corpus, as such text can already exist in the corpus.
+
+So to solve this issue, I switched to **Private Usage Area Unicode Range**, I chose `\uE000` for **newline** and `\uE001` for **end-of-word** marker.
+That way, we not only remove the ambiguity, because **Private Usage Area** characters never show up in text, but also further reduce the risk of markers being split aggressively, as the markers are now **single-character**.
+
+A few other things that I did,
+* Increased the number of merges from 8000 to 32000, because now the text is not exclusively in Sindhi Language.
+* Made a few changes in the preprocessing of text before and after tokenization to accomodate the change in markers for newline and end-of-word.
+* Added a measurement of **Compression Rate (chars per Token)** in the `EDA/sentence_length.py` to better test the efficiency of our tokenizer.
+

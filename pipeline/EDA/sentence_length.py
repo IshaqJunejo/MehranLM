@@ -5,6 +5,7 @@ from tokenization import tokenizer
 SENTENCE_SPLIT = re.compile(r'[-.،۔؟!?.؛;\n]+')
 
 total_tokens_in_dir = 0
+total_chars_in_dir = 0
 
 def split_sentences(text: str):
     sentences = SENTENCE_SPLIT.split(text)
@@ -14,7 +15,7 @@ def tokenize_sentence(sentence: str, token_dict):
     return tokenizer.encode(sentence, token_dict)
 
 def sentence_length_stat(filepath: str, token_dict):
-    global total_tokens_in_dir
+    global total_tokens_in_dir, total_chars_in_dir
 
     text = ""
     if filepath.endswith(".txt"):
@@ -41,11 +42,13 @@ def sentence_length_stat(filepath: str, token_dict):
         total_tokens += len(tokens)
     
     total_tokens_in_dir += total_tokens
+    total_chars_in_dir += len(text)
 
     token_len_distribution = sorted(token_len_distribution)
     
     print("Sentence Length Stats for " + filepath)
     print("Mean Sentence Length: " + str((total_tokens / len(sentences))))
+    print("Compression Rate (char per Token): " + str(len(text) / total_tokens))
     print("Total Tokens in the file: " + str(total_tokens))
 
     print("\nToken Length In Percentiles")
@@ -68,3 +71,4 @@ if __name__ == "__main__":
             sentence_length_stat(filepath, token_dict)
 
     print("\n\nTotal Token Count: " + str(total_tokens_in_dir))
+    print("Overall Compression Rate (char per Token): " + str(total_chars_in_dir / total_tokens_in_dir))
