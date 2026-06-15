@@ -1,8 +1,7 @@
 # Notes
 
-## Quality Assurance
-
 ### Analyze Long Sentences - `sindhi_wiki_articles_cleaned.txt`
+
 * **1st Jan, 2026**
 
 The python script `analyze_long_sentence.py` reads the corpus file `sindhi_wiki_articles_cleaned.txt` as it has a high number of large token-length sentences (as per the analysis).
@@ -17,11 +16,10 @@ Which means, that the sentence length is also (at least somewhat) inflated by ju
 
 #### Next steps
 
-- Migrate the BPE-training from custom python logic to some optimized library based solution, and experiement with a bigger number of merges
-- Those sentences that still exceed the threshold will be analyzed again.
-- If they seem to have broken semantics, we are getting rid of them.
+* Migrate the BPE-training from custom python logic to some optimized library based solution, and experiement with a bigger number of merges
+* Those sentences that still exceed the threshold will be analyzed again.
+* If they seem to have broken semantics, we are getting rid of them.
 
-## Tokenization
 
 ### Migration from Custom Tokenization to Tokenizers Library
 
@@ -73,7 +71,6 @@ Specially, when the wikipedia articles had to mention a year, there were no numb
 
 So I have decided to not remove *Numbers* and *Latin Characters*, but only allows lines with 75% of characters being in the Arabic Unicode ranges.
 
-## Model
 
 ### Calculating the Perplexity Scores of the Corpus
 
@@ -90,4 +87,4 @@ So, I performed the analysis on each file individually, broke that file into chu
 
 `self_typed_corpus_00_cleaned.txt` and `sindhi_wiki_articles_index_cleaned.txt` has a really high perplexity, this is likely due the high density short, list based content in these 2 files.
 
-The other 2 files, `sindhi_legal_dataset_cleaned.txt` and `sindhi_wiki_articles_cleaned.txt` does have a relatively lower perplexity, but still it is not low enough to be considered a "good enough" score. It is likely due to the limitation of the hand-picked subcorpus on which the charLM was trained. 
+The other 2 files, `sindhi_legal_dataset_cleaned.txt` and `sindhi_wiki_articles_cleaned.txt` does have a relatively lower perplexity, but still it is not low enough to be considered a "good enough" score. It is likely due to the limitation of the hand-picked subcorpus on which the charLM was trained.

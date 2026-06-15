@@ -4,6 +4,9 @@ Corpus/Raw/Large/
 # Private Corpus to be used for proprietary data
 Corpus/Private/
 
+# Private Perplexity Reports
+pipeline/model/perplexity_scores/Private/
+
 # Python cache directory
 __pycache__/
 

@@ -88,6 +88,7 @@ def compute_perplexity_on_file(path: str, filename: str):
         "standard deviation": std_ppl
     }
 
+    # output_dir = "model/perplexity_scores/Private/"
     output_dir = "model/perplexity_scores/"
     output_filename = filename.replace(".txt", "_results.json")
 
@@ -122,6 +123,7 @@ if __name__ == "__main__":
     model.load_state_dict(torch.load("model/char_LSTM_checkpoints/epoch_25.pth", map_location=device))
 
     # Calculating Perplexity
+    # corpus_dir = "../Corpus/Private/Cleaned/"
     corpus_dir = "../Corpus/Cleaned/"
 
     for filename in os.listdir(corpus_dir):
