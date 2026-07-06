@@ -1,6 +1,7 @@
 import os
 import re
-from tokenization import tokenizer
+from transformers import AutoTokenizer
+from tokenizers import Tokenizer
 
 SENTENCE_SPLIT = re.compile(r'[-.،۔؟!?.؛;\n]+')
 
@@ -11,10 +12,10 @@ def split_sentences(text: str):
     sentences = SENTENCE_SPLIT.split(text)
     return [s.strip() for s in sentences if s.strip()]
 
-def tokenize_sentence(sentence: str, token_dict):
-    return tokenizer.encode(sentence, token_dict)
+def tokenize_sentence(sentence: str, tokenizer):
+    return tokenizer.encode(sentence)
 
-def sentence_length_stat(filepath: str, token_dict):
+def sentence_length_stat(filepath: str, tokenizer):
     global total_tokens_in_dir, total_chars_in_dir
 
     text = ""
@@ -36,7 +37,7 @@ def sentence_length_stat(filepath: str, token_dict):
     total_tokens = 0
 
     for sentence in sentences:
-        tokens = tokenize_sentence(sentence, token_dict)
+        tokens = tokenize_sentence(sentence, tokenizer)
 
         token_len_distribution.append(len(tokens))        
         total_tokens += len(tokens)
@@ -61,14 +62,14 @@ def sentence_length_stat(filepath: str, token_dict):
     print("---")
 
 if __name__ == "__main__":
-    token_dict = tokenizer.load_tokens("./tokenization/tokenizer.json")
+    tokenizer = AutoTokenizer.from_pretrained("tokenization/files")
 
     corpus_dir = "../Corpus/Cleaned/"
     # corpus_dir = "../Corpus/Private/Cleaned/"
     for filename in os.listdir(corpus_dir):
         if filename.endswith(".txt"):
             filepath = os.path.join(corpus_dir, filename)
-            sentence_length_stat(filepath, token_dict)
+            sentence_length_stat(filepath, tokenizer)
 
     print("\n\nTotal Token Count: " + str(total_tokens_in_dir))
     print("Overall Compression Rate (char per Token): " + str(total_chars_in_dir / total_tokens_in_dir))

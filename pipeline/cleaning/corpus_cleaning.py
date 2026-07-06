@@ -6,7 +6,7 @@ import unicodedata
 # Zero width characters
 ZERO_WIDTH = ['\u200B', '\u200C', '\u200D', '\uFEFF', '\u200E', '\u200F', '\u202A', '\u202B', '\u202C', '\u202D', '\u202E', '\u061C']
 
-PUNCTUATIONS = ['.', '،', '؟', '!', '%', '*', '&', '(', ')', ';', ':', '\'', '\"', '?', '', '']
+PUNCTUATIONS = ['.', '،', '؟', '!', '%', '*', '&', '(', ')', ';', ':', '\'', '\"', '?', '-', '']
 
 # Arabic character ranges (Unicode)
 ARABIC_RANGES = [
@@ -82,7 +82,7 @@ def clean_text(text: str) -> str:
 def keep_arabic_and_latin(text: str) -> str:
     return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!%*&();:?\'\"0-9A-Za-z]', '', text)
 
-# def keep_arabic_block(text: str) -> str:
+# def keep_arabic_block(text: str) -> str:      # Decision changed
 #     # Only keep characters within Arabic ranges, and a few punctuations
 #     return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!]', '', text)
 
@@ -90,14 +90,14 @@ def normalize(text: str) -> str:
     # Normalizing different positional-rendering of characters to their standard-rendering
     text = unicodedata.normalize('NFKC', text)
 
-    # Normalizing different variants of "ي"
-    text = text.replace("ى", "ي")
-    text = text.replace("ی", "ي")
-    text = text.replace("ۍ", "ي")
-    text = text.replace("ێ", "ي")
-    text = text.replace("ې", "ي")
-    text = text.replace("ے", "ي")
-    text = text.replace("ۓ", "ي")
+    # # Normalizing different variants of "ي"   # Decision changed
+    # text = text.replace("ى", "ي")
+    # text = text.replace("ی", "ي")
+    # text = text.replace("ۍ", "ي")
+    # text = text.replace("ێ", "ي")
+    # text = text.replace("ې", "ي")
+    # text = text.replace("ے", "ي")
+    # text = text.replace("ۓ", "ي")
 
     return text
 
@@ -114,7 +114,7 @@ def is_sindhi_text(s: str) -> bool:
     if total_chars == 0:
         return False
 
-    # Return True if more than 40% of characters in the line are Sindhi characters
+    # Return True if more than 75% of characters in the line are Sindhi characters
     return (sindhi_chars / total_chars) > 0.75
 
 # Normalize whitespaces

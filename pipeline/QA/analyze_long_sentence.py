@@ -1,10 +1,12 @@
 import os
 import random
-from tokenization import tokenizer
+from transformers import AutoTokenizer
+from tokenizers import Tokenizer
 from EDA import sentence_length
 
 if __name__ == "__main__":
-    token_dict = tokenizer.load_tokens("./tokenization/tokenizer.json")
+    # token_dict = tokenizer.load_tokens("./tokenization/tokenizer.json")
+    tokenizer = AutoTokenizer.from_pretrained("tokenization/files")
 
     text = ""
     with open("../Corpus/Cleaned/sindhi_wiki_articles_cleaned.txt", "r", encoding="utf-8") as f:
@@ -16,7 +18,7 @@ if __name__ == "__main__":
     print("Finished splitting the text into sentences")
 
     for sentence in sentences:
-        tokens = sentence_length.tokenize_sentence(sentence, token_dict)
+        tokens = sentence_length.tokenize_sentence(sentence, tokenizer)
 
         if len(tokens) > 100:
             long_sentences.append((sentence, str(len(tokens))))
