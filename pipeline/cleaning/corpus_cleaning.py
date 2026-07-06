@@ -52,23 +52,17 @@ def clean_text(text: str) -> str:
     text = re.sub(r'={2,}', '', text)             # == section titles ==
     text = re.sub(r'\|.*?\n', '\n', text)         # tables / pipes
 
-    # Remove URLs, email addresses, and numbers
+    # Remove URLs and email addresses
     text = re.sub(r'http\S+|www\.\S+', '', text)
     text = re.sub(r'\S+@\S+', '', text)
-    # text = re.sub(r'\d+', '', text)   # Decision changed
 
     # Remove stray punctuation or excessive symbols
     text = re.sub(r'[“”"\'–—_•·<>•=*#|]', ' ', text)
     text = re.sub(r'\s+', ' ', text)
 
-    # Remove Latin characters
-    # text = re.sub(r'[A-Za-z]', '', text)  # Decision changed
-
     # Remove Zero width characters
     text = remove_zero_width(text)
 
-    # Keep only the arabic characters
-    # text = keep_arabic_block(text)    # Decision changed
     text = keep_arabic_and_latin(text)
 
     # Remove Diacritics
@@ -80,24 +74,11 @@ def clean_text(text: str) -> str:
     return text
 
 def keep_arabic_and_latin(text: str) -> str:
-    return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!%*&();:?\'\"0-9A-Za-z]', '', text)
-
-# def keep_arabic_block(text: str) -> str:      # Decision changed
-#     # Only keep characters within Arabic ranges, and a few punctuations
-#     return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!]', '', text)
+    return re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s.،؟!%*&();؛:?\'\"0-9A-Za-z/+=<>-]', '', text)
 
 def normalize(text: str) -> str:
     # Normalizing different positional-rendering of characters to their standard-rendering
     text = unicodedata.normalize('NFKC', text)
-
-    # # Normalizing different variants of "ي"   # Decision changed
-    # text = text.replace("ى", "ي")
-    # text = text.replace("ی", "ي")
-    # text = text.replace("ۍ", "ي")
-    # text = text.replace("ێ", "ي")
-    # text = text.replace("ې", "ي")
-    # text = text.replace("ے", "ي")
-    # text = text.replace("ۓ", "ي")
 
     return text
 

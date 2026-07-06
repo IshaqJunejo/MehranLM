@@ -109,3 +109,20 @@ A few other things that I did,
 * Made a few changes in the preprocessing of text before and after tokenization to accomodate the change in markers for newline and end-of-word.
 * Added a measurement of **Compression Rate (chars per Token)** in the `EDA/sentence_length.py` to better test the efficiency of our tokenizer.
 
+### Lessons from Benchmarking Tokenizers
+
+* **7th July 2026**
+
+While benchmarking a handful of tokenizers on a held-out Sindhi text, I ran into a problem and an inconvenience.
+
+* The inconvenience: All the other tokenizers I was benchmarking were accessed using **HuggingFace**, hence it was easy to use them with the `AutoTokenizer`. But My tokenizer was compatible with `tokenizers` not with `AutoTokenizer`, and that too not completely, I was using some custom-logic for *encoding* and *decoding* that was only placed in `tokenization/tokenizer.py` script.
+* The problem: Despite having the best compression rate, my tokenizer was the only tokenizer throwing `<UNK>` (Unknown Tokens). After analyzing, I found out it was mostly limited to *Diacritics*, *Smart Quotes*, a few *punctuations*, 2 different variants of *ي*, and 1 *emoji*.
+
+#### Steps taken
+
+* Less strict corpus cleaning,
+  * Stopped normalizing different variations of **ي**.
+  * Allowed a few more punctuations.
+* Made the tokenizer directly compatible with `AutoTokenizer`, so that it might be convenient to publish the tokenizer on **HuggingFace** someday.
+* Added a **Normalizer Route** in the tokenizer so that it remove/normalizes *Diacritics* and *Smart Quotes* before it processes them while training and testing.
+* Added **Byte-Level Fallback** to the tokenizer, to avoid throwing `<UNK>` everywhere it sees something not available in the training data.

@@ -1,7 +1,7 @@
 import os
 from typing import List
 
-from tokenizers import Tokenizer, normalizers, decoders, AddedToken
+from tokenizers import Tokenizer, normalizers, decoders, AddedToken, Regex
 from tokenizers.models import BPE
 from tokenizers.trainers import BpeTrainer
 from tokenizers.pre_tokenizers import Whitespace
@@ -11,7 +11,7 @@ from tokenizers.decoders import ByteFallback, BPEDecoder, Sequence as DecoderSeq
 from transformers import PreTrainedTokenizerFast, AutoTokenizer
 
 # Got this number from an EDA script
-NUM_OF_CHAR = 229         # Source: pipeline/EDA/unique_chars.txt
+NUM_OF_CHAR = 232         # Source: pipeline/EDA/unique_chars.txt
 
 NL_TOKEN = "\uE000"
 EW_TOKEN = "\uE001"
@@ -55,14 +55,16 @@ def train_bpe(corpus: str, num_merges: int, save_dir: str = "tokenization/files"
         MASK_TOKEN
     ])
 
+    DIACRITICS_REGEX = r"[\u064B\u064C\u064D\u064E\u065E\u064F\u0650\u0651\u0652]"
+
     # Normalizer Route
     tokenizer.normalizer = NormalizerSequence([
         NFC(),
         Replace("\n", NL_TOKEN),
         Replace("—", "-"),
-        Replace("“", '"'),
-        Replace("”", '"'),
-        Replace("’", "'")
+        Replace(Regex(DIACRITICS_REGEX), ""),
+        Replace(Regex(r'[“”«»]'), '"'),
+        Replace(Regex(r'[’’‘]'), "'")
     ])
 
     tokenizer.pre_tokenizer = Whitespace()
@@ -73,9 +75,9 @@ def train_bpe(corpus: str, num_merges: int, save_dir: str = "tokenization/files"
     trainer = BpeTrainer(
         vocab_size=vocab_size,
         min_frequency=1,
-        special_tokens=[UNK_TOKEN, NL_TOKEN, PAD_TOKEN, BOS_TOKEN, EOS_TOKEN, SEP_TOKEN, MASK_TOKEN],
+        special_tokens=[UNK_TOKEN, NL_TOKEN, PAD_TOKEN, BOS_TOKEN, EOS_TOKEN, SEP_TOKEN, MASK_TOKEN] + BYTE_FALLBACK_TOKENS,
         end_of_word_suffix=EW_TOKEN,
-        initial_alphabet=BYTE_FALLBACK_TOKENS,
+        # initial_alphabet=BYTE_FALLBACK_TOKENS,
     )
 
     tokenizer.train_from_iterator(

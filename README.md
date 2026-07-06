@@ -35,9 +35,8 @@ To create a home-grown Sindhi language model that developers, students, and even
   - [ ] Type folklore and old poetry
 - [x] Tokenization
   - [x] Basic BPE Tokenization
-  - [ ] Further Improvements
-- [ ] Train on RNN
-- [ ] Train on LSTM
+  - [x] Further Improvements
+- [x] Train on LSTM
 - [ ] Train on Transformers
 - [ ] Benchmarks
 
