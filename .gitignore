@@ -7,6 +7,9 @@ Corpus/Private/
 # Private Perplexity Reports
 pipeline/model/perplexity_scores/Private/
 
+# .env
+.env
+
 # Python cache directory
 __pycache__/
 

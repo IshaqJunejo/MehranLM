@@ -1,5 +1,6 @@
 # MehranLM
 
+![Language](https://img.shields.io/badge/Language-Sindhi%20(سنڌي)-blue)
 ![Status](https://img.shields.io/badge/Status-In_Progress-yellow)
 
 **MehranLM** is an experimental attempt to build a **Small Language Model (SLM) for Sindhi**. 

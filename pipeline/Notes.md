@@ -126,3 +126,31 @@ While benchmarking a handful of tokenizers on a held-out Sindhi text, I ran into
 * Made the tokenizer directly compatible with `AutoTokenizer`, so that it might be convenient to publish the tokenizer on **HuggingFace** someday.
 * Added a **Normalizer Route** in the tokenizer so that it remove/normalizes *Diacritics* and *Smart Quotes* before it processes them while training and testing.
 * Added **Byte-Level Fallback** to the tokenizer, to avoid throwing `<UNK>` everywhere it sees something not available in the training data.
+
+
+### Merging the codebase for Tokenier Benchmarking
+
+* **20th July, 2026**
+
+Decided to merge the private codebase for **Tokenizers Comparative Benchmark**, codebase is in the `tokenizer_benchmarking/` directory, and the testing datasets are stored in the `Corpus/Testing-data/` directory.
+
+It simply performs a benchmark of 10 tokenizers on 3 different testing datasets.
+
+The tokenizers are:
+* **SindhiLM-Tokenizer-v1** by **Aakash Meghwar** (see more [here](https://huggingface.co/aakashMeghwar01/SindhiLM-Tokenizer-v1))
+* **SindhiLM-Tokenizer-v2** by **Aakash Meghwar** (see more [here](https://huggingface.co/aakashMeghwar01/SindhiLM-Tokenizer-v2))
+* **SindhiLM-Tokenizer-v3** by **Aakash Meghwar** (see more [here](https://huggingface.co/aakashMeghwar01/SindhiLM-Tokenizer-v3))
+* **Sindhi-BPE-Tokenizer** by **Fahad Maqsood Qazi** (see more [here](https://huggingface.co/fahadqazi/Sindhi-BPE-Tokenizer))
+* **Qwen2.5-7B** (see more [here](https://huggingface.co/Qwen/Qwen2.5-7B))
+* **Meta-Llama-3.1-8B** (see more [here](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B))
+* **bert-base-multilingual-uncased** (see more [here](https://huggingface.co/google-bert/bert-base-multilingual-uncased))
+* **xlm-roberta-base** (see more [here](https://huggingface.co/FacebookAI/xlm-roberta-base))
+* **MehranLM-Tokenizer**
+* **MehranLM-Tokenizer-with-diacritics** (a slightly modified version of the **MehranLM-Tokenizer** that does not Normalize the Diacritics when testing)
+
+The datasets are:
+* Sindhi Sentiment Dataset
+* Sindhi Misspelled Sentences
+* Sindhi Misspelled Corrected Sentences
+
+For more about the datasets, read [Corpus/README.md](../Corpus/README.md).

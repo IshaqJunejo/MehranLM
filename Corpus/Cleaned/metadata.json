@@ -17,10 +17,18 @@
         "filtering": [
             "removing empty lines",
             "removing zero-width characters",
-            "HTML, XML, URLS, and leftover symbols",
-            "Keeping only Perso-Arabic Unicode blocks",
+            "HTML, XML, and URLS",
+            "Stray Punctuations",
+            "Lines with < 75% Perso-Arabic characters",
             "Removing diacritics",
-            "Whitespace trimming"
+            "Whitespace trimming",
+            "Duplicate Lines"
+        ],
+        "keeping only": [
+            "Characters in Perso-Arabic Unicode Ranges",
+            "Numbers (from 0 to 9)",
+            "English Characters (from 'A' to 'Z' and from 'a' to 'z')",
+            "Space and around 20 Punctuations or Symbols"
         ],
         "deduplication": "in-file deduplication",
         "applied to": "All files"
@@ -29,8 +37,7 @@
         {
             "filename": "self_typed_corpus_00_cleaned.txt",
             "source": "Personal Writings",
-            "sentence_count": "159",
-            "token_count": "529",
+            "token_count": "374",
             "char-entropy": "4.692934435181202 bits per char",
             "license": "CC-BY-SA-4.0",
             "copyright_holder": "Muhammad Ishaque Junejo"
@@ -38,8 +45,7 @@
         {
             "filename": "sindhi_legal_dataset_cleaned.txt",
             "source": "Sindhi Legal Dataset",
-            "sentence_count": "2982",
-            "token_count": "31327",
+            "token_count": "26051",
             "char-entropy": "4.64121923934374 bits per char",
             "author": "Danish Mahdi",
             "license": "CC-BY-SA-4.0",
@@ -48,25 +54,23 @@
         {
             "filename": "sindhi_wiki_articles_cleaned.txt",
             "source": "Wikipedia Dumps (sdwiki)",
-            "sentence_count": "571051",
-            "token_count": "6493467",
+            "token_count": "5548506",
             "char-entropy": "4.581089602325647 bits per char",
             "license": "CC-BY-SA-4.0",
-            "url": "https://dumps.wikimedia.org/sdwiki/20260101/",
+            "url": "https://dumps.wikimedia.org/sdwiki/20251120/",
             "type": "Wikipedia Article Content"
         },
         {
             "filename": "sindhi_wiki_articles_index_cleaned.txt",
             "source": "Wikipedia Dumps (sdwiki)",
-            "sentence_count": "35350",
-            "token_count": "162145",
+            "token_count": "990",
             "char-entropy": "4.6467186655760795 bits per char",
             "license": "CC-BY-SA-4.0",
-            "url": "https://dumps.wikimedia.org/sdwiki/20260101/",
+            "url": "https://dumps.wikimedia.org/sdwiki/20251120/",
             "type": "Index of Wikipedia Articles"
         }
     ],
-    "total_token_count": "6687468",
+    "total_token_count": "5575921",
     "license": "CC-BY-SA-4.0",
     "attribution": [
         "Wikipedia contributors",
@@ -79,5 +83,5 @@
         "Domain limitation"
     ],
     "curated_by": "Muhammad Ishaque Junejo",
-    "version": "0.1.0"
+    "version": "0.1.2"
 }
