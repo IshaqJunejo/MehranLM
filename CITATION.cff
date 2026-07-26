@@ -1,0 +1,11 @@
+preferred-citation:
+  type: misc
+  authors:
+    - family-names: "Junejo"
+      given-names: "Muhammad Ishaque"
+      orcid: "https://orcid.org/0009-0007-1277-554X"
+  title: "MehranLM-Tokenizer: A Natively-Trained Tokenizer for Sindhi Language Modelling"
+  publisher: "Zenodo"
+  year: 2026
+  doi: "10.5281/zenodo.21606268"
+  url: "https://doi.org/10.5281/zenodo.21606268"

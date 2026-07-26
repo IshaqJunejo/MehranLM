@@ -62,6 +62,26 @@ This project cannot grow alone. Contributions are welcome. You can help us in ma
 
 ---
 
+## Citation
+
+If you use this code or the findings from this repository or the preprint in your research, please cite it as follows:
+
+```
+@misc{junejo_2026_mehranlm_tokenizer,
+  author       = {Junejo, Muhammad Ishaque},
+  title        = {MehranLM-Tokenizer: A Natively-Trained Tokenizer
+                   for Sindhi Language Modelling
+                  },
+  month        = jul,
+  year         = 2026,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.21606268},
+  url          = {https://doi.org/10.5281/zenodo.21606268},
+}
+```
+
+---
+
 ## License
 
 This repository contains 2 different licenses.
