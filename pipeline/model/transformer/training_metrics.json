@@ -1,0 +1,109 @@
+{
+  "architecture": "LlamaForCausalLM",
+  "parameters": 13063424,
+  "config": {
+    "corpus_dir": "Corpus/Cleaned",
+    "tokenizer_dir": "pipeline/tokenization/files",
+    "output_dir": "checkpoints/mehranlm_transformer",
+    "metrics_path": "pipeline/model/transformer/training_metrics.json",
+    "val_ratio": 0.05,
+    "block_size": 256,
+    "hidden_size": 256,
+    "intermediate_size": 688,
+    "num_layers": 6,
+    "num_heads": 4,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "grad_accum_steps": 2,
+    "epochs": 5,
+    "lr": 0.0005,
+    "weight_decay": 0.1,
+    "seed": 42
+  },
+  "dataset": {
+    "train_lines": 139578,
+    "val_lines": 7346,
+    "train_tokens": 6046976,
+    "val_tokens": 319232,
+    "val_chars": 1243410
+  },
+  "best_val_loss": 4.6692,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 6.8026,
+      "train_perplexity": 900.1452,
+      "val_loss": 5.5535,
+      "val_perplexity": 258.1393,
+      "val_bpc": 2.049,
+      "lr": 0.000473,
+      "epoch_time_sec": 99.5
+    },
+    {
+      "epoch": 2,
+      "train_loss": 5.2366,
+      "train_perplexity": 188.0291,
+      "val_loss": 5.0104,
+      "val_perplexity": 149.9637,
+      "val_bpc": 1.8486,
+      "lr": 0.000365,
+      "epoch_time_sec": 104.3
+    },
+    {
+      "epoch": 3,
+      "train_loss": 4.8413,
+      "train_perplexity": 126.6376,
+      "val_loss": 4.7963,
+      "val_perplexity": 121.0613,
+      "val_bpc": 1.7696,
+      "lr": 0.00022,
+      "epoch_time_sec": 104.0
+    },
+    {
+      "epoch": 4,
+      "train_loss": 4.6294,
+      "train_perplexity": 102.4505,
+      "val_loss": 4.7013,
+      "val_perplexity": 110.0925,
+      "val_bpc": 1.7345,
+      "lr": 9.7e-05,
+      "epoch_time_sec": 103.7
+    },
+    {
+      "epoch": 5,
+      "train_loss": 4.513,
+      "train_perplexity": 91.1905,
+      "val_loss": 4.6692,
+      "val_perplexity": 106.6096,
+      "val_bpc": 1.7227,
+      "lr": 5e-05,
+      "epoch_time_sec": 103.9
+    }
+  ],
+  "held_out_testing_data": {
+    "sindhi_sentiment_parsed.txt": {
+      "lines": 1904,
+      "tokens": 38912,
+      "chars": 147467,
+      "loss": 5.6064,
+      "perplexity": 272.1594,
+      "bpc": 2.1259
+    },
+    "sindhi_misspelling_corrected_sentences.txt": {
+      "lines": 100000,
+      "tokens": 2138368,
+      "chars": 7867990,
+      "loss": 6.1145,
+      "perplexity": 452.3879,
+      "bpc": 2.3881
+    },
+    "sindhi_misspelled_sentences.txt": {
+      "lines": 100000,
+      "tokens": 2800896,
+      "chars": 7664030,
+      "loss": 7.6863,
+      "perplexity": 2178.251,
+      "bpc": 4.0367
+    }
+  }
+}
