@@ -131,13 +131,13 @@ def evaluate(
 
 def main():
     parser = argparse.ArgumentParser(description="Train a small causal Transformer for MehranLM.")
-    parser.add_argument("--corpus_dir", type=str, default="Corpus/Cleaned")
-    parser.add_argument("--tokenizer_dir", type=str, default="pipeline/tokenization/files")
+    parser.add_argument("--corpus_dir", type=str, default="../Corpus/Cleaned")
+    parser.add_argument("--tokenizer_dir", type=str, default="tokenization/files")
     parser.add_argument("--output_dir", type=str, default="checkpoints/mehranlm_transformer")
     parser.add_argument(
         "--metrics_path",
         type=str,
-        default="pipeline/model/transformer/training_metrics.json",
+        default="model/transformer/training_metrics.json",
     )
     parser.add_argument("--val_ratio", type=float, default=0.05)
     parser.add_argument("--block_size", type=int, default=256)

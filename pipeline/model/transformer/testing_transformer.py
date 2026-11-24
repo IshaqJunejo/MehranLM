@@ -40,7 +40,7 @@ def generate_samples(model, tokenizer, prompt: str, temperatures, max_new_tokens
 
 def main():
     parser = argparse.ArgumentParser(description="Test trained MehranLM Transformer checkpoint.")
-    parser.add_argument("--model_dir", type=str, required=True)
+    parser.add_argument("--model_dir", type=str, default="checkpoints/mehranlm_transformer")
     parser.add_argument("--max_new_tokens", type=int, default=80)
     args = parser.parse_args()
 

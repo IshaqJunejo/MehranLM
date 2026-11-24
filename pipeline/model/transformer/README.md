@@ -44,19 +44,15 @@ Evaluated on held-out testing datasets excluded from training.
 ### Train
 
 ```bash
-python pipeline/model/transformer/train_transformer.py \
-  --corpus_dir Corpus/Cleaned \
-  --tokenizer_dir pipeline/tokenization/files \
-  --output_dir checkpoints/mehranlm_transformer \
-  --epochs 5
+cd pipeline
+python model/transformer/train_transformer.py --epochs 5
 ```
 
 ### Test Generation and Perplexity / BPC
 
 ```bash
-python pipeline/model/transformer/testing_transformer.py \
-  --model_dir checkpoints/mehranlm_transformer \
-  --max_new_tokens 80
+cd pipeline
+python model/transformer/testing_transformer.py --max_new_tokens 80
 ```
 
 Sample outputs are saved in `text_generated_by_transformer.txt`.
